@@ -1,4 +1,5 @@
 
+import dj_database_url
 from django.contrib.messages import constants as messages
 import os
 
@@ -15,26 +16,29 @@ SECRET_KEY = '&l$7^lbzx!qri2*not5x$wg*)#7t@qkmw$@t)^&p8%=ee00d*-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vitory001.herokuapp.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'home.apps.HomeConfig',
-    'menu.apps.MenuConfig',
-    'contact.apps.ContactConfig',
-    'blogs.apps.BlogsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    'home.apps.HomeConfig',
+    'menu.apps.MenuConfig',
+    'contact.apps.ContactConfig',
+    'blogs.apps.BlogsConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,6 +82,11 @@ DATABASES = {
 }
 
 
+# add this
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
+
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -120,6 +129,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'victory/static')
 ]
 
+STATICFILES_STORAGE = 'whitenoise.django.CompressedManifestStaticFilesStorage'
 
 # messages
 MESSAGE_TAGS = {
