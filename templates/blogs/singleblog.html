@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{blog.title}}</h1>
+                <p>Whatever drinking vinegar hella fingerstache shoreditch kickstarter kitsch. La croix hella iceland flexitarian letterpress.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="blog-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="blog-item">
+                    <img src="{{blog.photo_main.url}}" alt="">
+                    <div class="date">{{blog.blog_date | date:'d b Y'}}</div>
+                    <div class="down-content">
+                        <h4>{{blog.title}}</h4>
+                        <span>{{blog.blog_type}} / {{blog.blog_writter}}</span>
+                        <p>{{blog.description}}</p>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</section>
+{% endblock %}

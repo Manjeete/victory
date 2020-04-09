@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="page-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Our Blog</h1>
+                <p>Whatever drinking vinegar hella fingerstache shoreditch kickstarter kitsch. La croix hella iceland flexitarian letterpress.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="blog-page">
+    <div class="container">
+        <div class="row">
+            {% if blogs %}
+                {% for blog in blogs %}
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="blog-item">
+                            <img src="{{blog.photo_main.url}}" alt="">
+                            <div class="date">{{blog.blog_date | date:'d M Y'}}</div>
+                            <div class="down-content">
+                                <h4>{{blog.title}}</h4>
+                                <span>{{blog.blog_type}} / {{blog.blog_writter}}</span>
+                                <p>{{blog.description}}</p>
+                                <div class="text-button">
+                                    <a href="{% url 'blog' blog.id %}">Continue Reading</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12">
+                    <p>No Blog Available</p>
+                </div>
+            {% endif %}
+            <div class="col-md-8 col-md-offset-2">
+                {% if blogs.has_other_pages %}
+                    <ul class="page-number">
+                        {% if blogs.has_previous %}
+                            <li><a href="?page={{blogs.previous_page_number}}">&lt;&lt;</a></li>
+                        {% endif %}
+                        {% for i in blogs.paginator.page_range %}
+                            {% if blogs.number == i %}
+                                <li class="active"><a>{{i}}</a></li>
+                            {% else %}
+                                <li><a href="?page={{i}}">{{i}}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if blogs.has_next %}
+                            <li><a href="?page={{blogs.next_page_number}}">&gt;&gt;</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% include 'partials/_footer2.html' %}
+{% endblock %}
