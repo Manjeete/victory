@@ -1,4 +1,4 @@
-
+from decouple import config
 import dj_database_url
 from django.contrib.messages import constants as messages
 import os
@@ -74,10 +74,10 @@ WSGI_APPLICATION = 'victory.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'victory',
-        'USER': 'postgres',
-        'PASSWORD': 'manjeet',
-        'HOSt': 'localhost'
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOSt': config('HOST')
     }
 }
 
